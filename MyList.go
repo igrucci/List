@@ -40,6 +40,33 @@ func (lst *List[T]) Set(index int, new_v T) {
 	}
 }
 
+
+func (lst *List[T]) Delete(v T) {
+	if lst.head == nil {
+		return // Список пуст
+	}
+	if lst.head.value == v {
+		lst.head = lst.head.next
+		if lst.head == nil {
+			lst.tail = nil
+		}
+		return
+	}
+	prev := lst.head
+	for cur := lst.head.next; cur != nil; cur = cur.next {
+		if cur.value == v {
+			prev.next = cur.next
+			if cur.next == nil {
+				lst.tail = prev.next
+			}
+			return
+		}
+		prev = cur
+	}
+	fmt.Println("not found")
+
+}
+
 func main() {
 	lst := List[int]{}
 	lst.Push(4)
